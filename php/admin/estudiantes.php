@@ -54,17 +54,23 @@ $filas = $resultado->fetch_all(MYSQLI_ASSOC);
                     <a href ="agregar_estudiante.php"><button class="btn btn-primary">agregar estudiantes</button></a>
                    
                 </div>
+
                 <div class="col">
 
                 <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">@</span>
                 <input type="text" class="form-control" placeholder="escribe para buscar" aria-describedby="basic-addon1">
                 </div>
-
                 </div>
+                
                 <div class="col">
-                Column
+
+                <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">@</span>
+                <input type="text" class="form-control" placeholder="escribe para buscar" aria-describedby="basic-addon1">
                 </div>
+                </div>
+
             </div>
             </div>
 
