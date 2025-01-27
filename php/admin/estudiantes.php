@@ -7,6 +7,15 @@ $consulta = "SELECT*FROM estudiantes";
 $resultado = $mysqli->query($consulta);
 $filas = $resultado->fetch_all(MYSQLI_ASSOC);
 
+if (isset($_POST['busqueda'])) {
+    $termino_busqueda = $mysqli->real_escape_string($_POST['busqueda']); 
+
+$consulta_buscar = "SELECT*FROM estudiantes WHERE (nombres LIKE '%$termino_busqueda%') OR (apellidos LIKE '%$termino_busqueda%')";
+$resultados_busqueda = $mysqli->query($consulta_buscar);
+$filas_busqueda = $resultados_busqueda->fetch_all(MYSQLI_ASSOC);
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -56,22 +65,45 @@ $filas = $resultado->fetch_all(MYSQLI_ASSOC);
                 </div>
 
                 <div class="col">
-
-                <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">@</span>
-                <input type="text" class="form-control" placeholder="escribe para buscar" aria-describedby="basic-addon1">
-                </div>
+                    <form action="estudiantes.php" method="post">
+                        <div class="input-group mb-3">
+                            <input type="text" name="busqueda" class="form-control" placeholder="escribe para buscar" aria-describedby="basic-addon1">
+                            <button type="submit" class="btn btn-success">Buscar</button>
+                            <a href="estudiantes.php"></a><button class="btn btn-secondary">Reset</button>
+                        </div>
+                    </form>
                 </div>
                 
                 <div class="col">
-
-                <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">@</span>
-                <input type="text" class="form-control" placeholder="escribe para buscar" aria-describedby="basic-addon1">
                 </div>
-                </div>
-
             </div>
+            </div>
+
+            
+            <div class="container text-center">
+            <?php 
+                if (isset($_POST['busqueda'])) {
+
+            ?>
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <?php
+                    echo "Resultados de busqueda para: ".$_POST['busqueda'];
+            ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                
+                <?php
+                }
+                ?>    
+                    
+                </div>
+
+                <?php 
+               if (isset($_POST['busqueda'])) {
+                echo "Resultados de busqueda para: ".$_POST['busqueda'];
+
+                }
+                ?>
             </div>
 
     </div>
@@ -90,7 +122,31 @@ $filas = $resultado->fetch_all(MYSQLI_ASSOC);
             </thead>
 
             <tbody>
-                <<?php
+                
+            <?php
+            
+                if (isset($_POST['busqueda'])) {
+                    $sum = 1;
+                    foreach($filas_busqueda as $fila_busqueda){
+                ?>
+                
+                <tr>
+                    <td class="text-center"><?php echo $sum++;?></td>
+                    <td class="text-center"><?php echo $fila_busqueda['nombres'];?></td>
+                    <td class="text-center"><?php echo $fila_busqueda['apellidos'];?></td>
+                    <td class="text-center"><?php echo $fila_busqueda['cedula'];?></td>
+                    <td class="text-center"><?php echo $fila_busqueda['telefono'];?></td>
+                    <td class="text-center"><?php echo $fila_busqueda['correo'];?></td>
+                    <td>
+                        <button type="button" class="btn btn-warning">eliminar</button>
+                    </td>
+                </tr>
+
+                  <?php  
+                  }
+
+
+                } else {
                     $sum = 1;
                     foreach($filas as $fila){
                 ?>
@@ -109,6 +165,8 @@ $filas = $resultado->fetch_all(MYSQLI_ASSOC);
 
                   <?php  
                   }
+            
+                }
                 ?>
             </tbody>
 

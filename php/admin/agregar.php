@@ -28,10 +28,6 @@ if ($resultado) {
 }
 
 }
-
-
-
-
 $mysqli->close();
 
 ?>
