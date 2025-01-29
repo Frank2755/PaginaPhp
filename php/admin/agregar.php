@@ -8,7 +8,7 @@ $cedula_est = $_POST ["cedula_est"];
 $correo_est = $_POST ["correo_est"];
 $telefono_est = $_POST ["telefono_est"];
 
-if (isset($nombres_est) == null OR (isset($apellidos_est))) {
+if (isset($nombres_est) == null OR (isset($apellidos_est)) == null) {
     echo '<script>alert("todos los campos deben estar llenos");window.location.href="agregar_estudiante.php"</script>;';
 } else {
     $insercion = "INSERT estudiantes SET

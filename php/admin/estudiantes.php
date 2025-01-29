@@ -138,8 +138,29 @@ $filas_busqueda = $resultados_busqueda->fetch_all(MYSQLI_ASSOC);
                     <td class="text-center"><?php echo $fila_busqueda['telefono'];?></td>
                     <td class="text-center"><?php echo $fila_busqueda['correo'];?></td>
                     <td>
-                        <button type="button" class="btn btn-warning">eliminar</button>
-                    </td>
+                    <a href="editar_estudiante.php?id=<?php echo base64_encode($fila_busqueda['id']);?>"> <button type="button" class="btn btn-warning">editar</button></a>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_eliminar_<?php echo $fila_busqueda['id'];?>">borrar</button>
+
+
+
+                    <div class="modal fade" id="modal_eliminar_<?php echo $fila_busqueda['id'];?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar estudiante</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center mt-5">
+                            <h4>esta seguro que desea eliminar al estudiante: <?php echo $fila_busqueda['nombres'].' '.$fila_busqueda['apellidos']?></h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a href="borrar.php?id=<?php echo base64_encode($fila_busqueda['id']);?>"><button type="button" class="btn btn-danger">eliminar</button></a>
+
+                        </div>
+                        </div>
+                    </div>
+                    </div>
                 </tr>
 
                   <?php  
@@ -159,13 +180,39 @@ $filas_busqueda = $resultados_busqueda->fetch_all(MYSQLI_ASSOC);
                     <td class="text-center"><?php echo $fila['telefono'];?></td>
                     <td class="text-center"><?php echo $fila['correo'];?></td>
                     <td>
-                        <button type="button" class="btn btn-warning">eliminar</button>
+
+
+                    <a href="editar_estudiante.php?id=<?php echo base64_encode($fila['id']);?>"> <button type="button" class="btn btn-warning">editar</button></a>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_eliminar_<?php echo $fila['id'];?>">borrar</button>
+
+
+
+                        <div class="modal fade" id="modal_eliminar_<?php echo $fila['id'];?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header bg-danger text-white">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar estudiante</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center mt-5">
+                                <h4>esta seguro que desea eliminar al estudiante: <?php echo $fila['nombres'].' '.$fila['apellidos']?></h4>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                               <a href="borrar.php?id=<?php echo base64_encode($fila['id']);?>"><button type="button" class="btn btn-danger">eliminar</button></a>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+
                     </td>
                 </tr>
 
                   <?php  
                   }
             
+                
+
                 }
                 ?>
             </tbody>
